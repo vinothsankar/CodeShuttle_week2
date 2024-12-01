@@ -36,7 +36,7 @@ public class DepartmentDto {
     @AssertTrue
     private boolean isActive;
 
-    @JsonFormat(pattern = "DD-MM-YYYY hh:mm:ss")
+    @JsonFormat(pattern = "dd-MM-YYYY hh:mm:ss")
     private LocalDate createdAt;
 
     @PasswordValidation()
