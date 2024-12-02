@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -29,8 +30,9 @@ public class Department {
     private String email;
     private Integer primNumber;
     private long creteCard;
-    private boolean isActive;
-    private LocalDate createdAt;
+    @JsonProperty("isActive")
+    private Boolean isActive;
+    private LocalDateTime createdAt;
     private String password;
 
 }

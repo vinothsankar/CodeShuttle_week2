@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 public @interface PasswordValidation {
 
-    String message() default "Roll of employee user or admin";
+    String message() default "Password should match the criteria";
 
     Class<?>[] groups() default {};
 

@@ -41,7 +41,7 @@ public class DepartmentService {
     }
 
     public DepartmentDto createDepartment(DepartmentDto newDepartmentDto) {
-        newDepartmentDto.setCreatedAt(LocalDate.now());
+        newDepartmentDto.setCreatedAt(LocalDateTime.now());
         Department addedDepartment  = departmentRepository.save(modelMapper.map(newDepartmentDto, Department.class));
         return modelMapper.map(addedDepartment,DepartmentDto.class);
     }
