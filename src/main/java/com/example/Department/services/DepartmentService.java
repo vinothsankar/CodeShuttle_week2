@@ -4,11 +4,15 @@ import com.example.Department.dto.DepartmentDto;
 import com.example.Department.entity.Department;
 import com.example.Department.exception.ResourceNotFoundException;
 import com.example.Department.repository.DepartmentRepository;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,5 +32,17 @@ public class DepartmentService {
         return dep.stream()
                 .map((department) -> modelMapper.map(department, DepartmentDto.class))
                 .collect(Collectors.toList());
+    }
+
+
+    public DepartmentDto getDepartmentById(Long id) {
+        if(departmentRepository.existsById(id)) throw new ResourceNotFoundException("No such Departmen with Id : "+id);
+        return modelMapper.map(departmentRepository.findById(id), DepartmentDto.class);
+    }
+
+    public DepartmentDto createDepartment(DepartmentDto newDepartmentDto) {
+        newDepartmentDto.setCreatedAt(LocalDate.now());
+        Department addedDepartment  = departmentRepository.save(modelMapper.map(newDepartmentDto, Department.class));
+        return modelMapper.map(addedDepartment,DepartmentDto.class);
     }
 }

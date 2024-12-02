@@ -9,12 +9,14 @@ import java.lang.annotation.Target;
 
 
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {PrimeNumberValidator.class})
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Constraint(validatedBy = PrimeNumberValidator.class)
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 public @interface PrimeNumberValidation {
 
     String message() default "Number should be Prime Number";
-    Class<?>[] groups() default { };
-    Class<? extends Payload>[] Payload() default { };
 
- }
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+}

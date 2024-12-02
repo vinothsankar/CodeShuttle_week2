@@ -31,7 +31,7 @@ public class DepartmentDto {
     private int primNumber;
 
     @CreditCardNumber(message = "Enter a valid Credit card number")
-    private long creteCard;
+    private String creteCard;
 
     @AssertTrue
     private boolean isActive;

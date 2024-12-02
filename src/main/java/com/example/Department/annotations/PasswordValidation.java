@@ -10,14 +10,14 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {PasswordValidator.class})
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.METHOD})
 public @interface PasswordValidation {
 
     String message() default "Roll of employee user or admin";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
     int min() default 8;
     int max() default 20;
