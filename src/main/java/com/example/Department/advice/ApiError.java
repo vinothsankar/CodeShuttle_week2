@@ -8,7 +8,7 @@ import java.util.List;
 @Builder
 @Data
 public class ApiError {
-    private String message;
     private HttpStatus status;
+    private String message;
     private List<String> subErrors;
 }

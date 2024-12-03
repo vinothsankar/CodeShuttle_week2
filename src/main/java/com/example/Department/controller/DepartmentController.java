@@ -2,6 +2,7 @@ package com.example.Department.controller;
 
 import com.example.Department.advice.ApiResponse;
 import com.example.Department.dto.DepartmentDto;
+import com.example.Department.exception.ResourceNotFoundException;
 import com.example.Department.services.DepartmentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/department")
@@ -27,7 +29,9 @@ public class DepartmentController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<DepartmentDto> getDepartmentById(@PathVariable Long id){
-            return ResponseEntity.ok(departmentService.getDepartmentById(id));
+            Optional<DepartmentDto> department = departmentService.getDepartmentById(id);
+            return department.map(depart -> ResponseEntity.ok(depart))
+                    .orElseThrow(() -> new ResourceNotFoundException("No such Department with ID :"+id));
     }
 
     @PostMapping("add/")

@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
@@ -37,9 +38,10 @@ public class DepartmentService {
     }
 
 
-    public DepartmentDto getDepartmentById(Long id) {
+    public Optional<DepartmentDto> getDepartmentById(Long id) {
         if(!departmentRepository.existsById(id)) throw new ResourceNotFoundException("No such Department with Id : "+id);
-        return modelMapper.map(departmentRepository.findById(id), DepartmentDto.class);
+        Optional<Department> addDepartment = departmentRepository.findById(id);
+        return addDepartment.map(department -> modelMapper.map(department, DepartmentDto.class));
     }
 
     public DepartmentDto createDepartment(DepartmentDto newDepartmentDto) {
@@ -52,6 +54,9 @@ public class DepartmentService {
         if (departmentRepository.existsById(id)){
            Department updateDepartment =  modelMapper.map(newDepartment, Department.class);
            updateDepartment.setId(id);
+           updateDepartment.setCreatedAt(
+                   departmentRepository.findById(id).get().getCreatedAt()
+           );
            return modelMapper.map(departmentRepository.save(updateDepartment), DepartmentDto.class);
         }else{
             throw new ResourceNotFoundException("No such Department with this Id : "+id);
