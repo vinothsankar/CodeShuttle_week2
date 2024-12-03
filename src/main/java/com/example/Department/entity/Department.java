@@ -33,6 +33,7 @@ public class Department {
     @JsonProperty("isActive")
     private Boolean isActive;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String password;
 
 }

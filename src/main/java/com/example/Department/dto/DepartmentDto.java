@@ -43,6 +43,9 @@ public class DepartmentDto {
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime createdAt;
 
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
+    private LocalDateTime updatedAt;
+
     @PasswordValidation(min = 6, max = 10, specialCharacterRequired = true, message = "Password must include uppercase, lowercase, digit, special character, and be between 6 and 10 characters")
     private String password;
 

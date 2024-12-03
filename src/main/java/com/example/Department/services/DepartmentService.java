@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.data.util.ReflectionUtils;
@@ -57,6 +56,7 @@ public class DepartmentService {
            updateDepartment.setCreatedAt(
                    departmentRepository.findById(id).get().getCreatedAt()
            );
+           updateDepartment.setUpdatedAt(LocalDateTime.now());
            return modelMapper.map(departmentRepository.save(updateDepartment), DepartmentDto.class);
         }else{
             throw new ResourceNotFoundException("No such Department with this Id : "+id);
@@ -71,7 +71,7 @@ public class DepartmentService {
             fieldToUpdate.setAccessible(true);
             ReflectionUtils.setField(fieldToUpdate,existDepartment,value);
         });
-
+        existDepartment.setUpdatedAt(LocalDateTime.now());
         return modelMapper.map(departmentRepository.save(existDepartment), DepartmentDto.class);
     }
 
